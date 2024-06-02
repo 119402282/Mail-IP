@@ -1,31 +1,41 @@
 import smtplib
 import os
+import requests
+import json
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 load_dotenv()
 
-subject = "Email Subject"
-body = "This is the body of the text message"
-sender = "ipaddress.adamstown@gmail.com"
-recipients = ["cullenhenry2016@gmail.com", "ipaddress.adamstown@gmail.com"]
-password = "Gory5-Showcase9-Shamrock5-Machine6-Blazing4"
+def main():
+    password = os.getenv("PASSWORD")
+    device = os.getenv("DEVICE")
+    sender = os.getenv("EMAIL")
+    subject = "IP Address of the " + device
+    public_ip = get_public_ip()
+    body = "Hi there "+ sender +",\n\nThe public IP address of the " + device + " is " + public_ip + ".\nThx for using the service. \n\nRegards, \nYour friendly bot"
+    print(password, device, sender, subject, body)
+    send_email(subject, body, sender, password)
 
 
-#get poassword from dotenv
-password = os.getenv("PASSWORD")
-device = os.getenv("DEVICE")
-print(password, device)
-
-
-def send_email(subject, body, sender, recipients, password):
+def send_email(subject, body, sender, password):
     msg = MIMEText(body)
     msg['Subject'] = subject
     msg['From'] = sender
-    msg['To'] = ', '.join(recipients)
+    msg['To'] = sender
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
         smtp_server.login(sender, password)
-        smtp_server.sendmail(sender, recipients, msg.as_string())
+        smtp_server.sendmail(sender, sender, msg.as_string())
         print("Message sent!")
 
-send_email(subject, body, sender, recipients, password)
+def get_public_ip():
+    endpoint = 'https://ipinfo.io/json'
+    response = requests.get(endpoint, verify=True)
+    if response.status_code != 200:
+        return 'Status:', response.status_code, 'Problem with the request. Exiting.'
+        exit()
+    data = response.json()
+    return data['ip']
+
+if __name__ == '__main__':
+    main()
