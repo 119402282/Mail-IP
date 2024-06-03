@@ -30,5 +30,6 @@ This is a simple script that sends an email with the public IP of the machine it
 ## Credits
 
 This script was created by Henry Cullen an enjoyer of all things tech ✌️.
+It has a dependency of the https://ipinfo.io/json API to get the public IP address of the machine and the current gmail smtp server to send the email in 2024 (requiring app passwords). As is the case with all APIs, the availability and functionality of the ipinfo.io API may change over time. If the API is no longer available or does not work as expected, the script may need to be updated to use a different API or method to get the public IP address.
 
 
