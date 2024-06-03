@@ -8,7 +8,7 @@ This is a simple script that sends an email with the public IP of the machine it
 
 1. Clone the repository
 2. Create a virtual environment with `python -m venv venv`
-3. Activate the virtual environment with `source venv/bin/activate`
+3. Activate the virtual environment with `source venv/bin/activate` on Linux or `.\venv\Scripts\Activate.ps1` on Windows
 4. Install the required packages with `pip install -r requirements.txt`
 5. Get a gmail account and an app password for the account. Instructions can be found [here](https://support.google.com/accounts/answer/185833?hl=en)
 6. Configure the script with your email settings in a `.env` file (see the `.env.example` file for an example).
